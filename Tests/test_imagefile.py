@@ -207,8 +207,8 @@ class MockPyDecoder(ImageFile.PyDecoder):
 
         super().__init__(mode, *args)
 
-    def decode(self, buffer):
-        # eof
+    @staticmethod
+    def decode(buffer):
         return -1, 0
 
 
