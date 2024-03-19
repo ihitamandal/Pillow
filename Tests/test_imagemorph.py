@@ -42,10 +42,16 @@ def img_to_string(im: Image.Image) -> str:
     """Turn a (small) binary image into a string representation"""
     chars = ".1"
     width, height = im.size
-    return "\n".join(
-        "".join(chars[im.getpixel((c, r)) > 0] for c in range(width))
-        for r in range(height)
-    )
+    pixels = im.load()
+
+    result = []
+    for r in range(height):
+        row = []
+        for c in range(width):
+            row.append(chars[pixels[c, r] > 0])
+        result.append("".join(row))
+
+    return "\n".join(result)
 
 
 def img_string_normalize(im: str) -> str:
